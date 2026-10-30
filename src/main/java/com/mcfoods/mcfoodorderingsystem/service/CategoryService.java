@@ -24,12 +24,12 @@ public interface CategoryService  {
     /*
       add category
      */
-    CategoryDTO addCategory(CategoryDTO category);
+    CategoryDTO addCategory(CategoryDTO categoryDTO);
 
     /*
      update the existing category
      */
-    CategoryDTO updateCategory(Long id, CategoryDTO category);
+    CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO);
 
     /*
      Delete category
