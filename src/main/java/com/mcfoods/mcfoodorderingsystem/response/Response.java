@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.time.LocalDateTime;
 
 /*
-
+   A wrapper class fo standard responses
  */
 @Data
 @Builder
