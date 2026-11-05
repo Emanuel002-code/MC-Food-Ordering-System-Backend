@@ -4,12 +4,13 @@ import com.mcfoods.mcfoodorderingsystem.dto.CategoryDTO;
 import com.mcfoods.mcfoodorderingsystem.entity.Category;
 import com.mcfoods.mcfoodorderingsystem.exception.CategoryNotFoundException;
 import com.mcfoods.mcfoodorderingsystem.respository.CategoryRespository;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
 
@@ -40,15 +41,15 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDTO findById(Long id) {
 
         Optional<Category> category = categoryRespository.findById(id);
-        Category FoundCategory = category.orElseThrow(()-> new CategoryNotFoundException("Category with id:"+id+" is not found"));
+        Category foundCategory = category.orElseThrow(()-> new CategoryNotFoundException("Category with id:"+id+" is not found"));
 
-        return Helper.fromCategoryToDTO(FoundCategory);
+        return Helper.fromCategoryToDTO(foundCategory);
     }
 
     @Override
     public CategoryDTO findByName(String name) {
 
-        Optional <Category> category= categoryRespository.findByName(name);
+        Optional <Category> category= categoryRespository.findByCategoryName(name);
         Category FoundCategory = category.orElseThrow(()-> new CategoryNotFoundException("Category with name:"+name+" is not found"));
 
         return Helper.fromCategoryToDTO(FoundCategory);
@@ -69,19 +70,19 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO) {
 
         Optional<Category> category = categoryRespository.findById(id);
-        Category FoundCategory = category.orElseThrow(()-> new CategoryNotFoundException("Category with id:"+id+" is not found"));
+        Category foundCategory = category.orElseThrow(()-> new CategoryNotFoundException("Category with id:"+id+" is not found"));
 
         if(categoryDTO.getCategoryName() != null){
-            FoundCategory.setCategoryName(categoryDTO.getCategoryName());
+            foundCategory.setCategoryName(categoryDTO.getCategoryName());
         }
         if(categoryDTO.getCategoryDescription() != null){
-            FoundCategory.setCategoryDescription(categoryDTO.getCategoryDescription());
+            foundCategory.setCategoryDescription(categoryDTO.getCategoryDescription());
         }
-        if(categoryDTO.getCategoryName() != null){
-            FoundCategory.setCategoryImage(categoryDTO.getCategoryImage());
+        if(categoryDTO.getCategoryImage() != null){
+            foundCategory.setCategoryImage(categoryDTO.getCategoryImage());
         }
 
-       Category updatedCategory= categoryRespository.save(FoundCategory);
+       Category updatedCategory= categoryRespository.save(foundCategory);
 
 
         return Helper.fromCategoryToDTO(updatedCategory);
@@ -92,9 +93,9 @@ public class CategoryServiceImpl implements CategoryService {
 
 
         Optional<Category> category = categoryRespository.findById(id);
-        Category FoundCategory = category.orElseThrow(()-> new CategoryNotFoundException("Category with id:"+id+" is not found"));
+        Category foundCategory = category.orElseThrow(()-> new CategoryNotFoundException("Category with id:"+id+" is not found"));
 
-        categoryRespository.delete(FoundCategory);
+        categoryRespository.delete(foundCategory);
 
     }
 }
